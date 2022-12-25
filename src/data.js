@@ -6,6 +6,12 @@ export default [
         "ISO": "AUD"
     },
     {
+        "Currency": " Argentine Peso",
+        "Name": "Peso",
+        "Symbol": "$",
+        "ISO": "ARS"
+    },
+    {
         "Currency": " Brazilian real",
         "Name": "Real",
         "Symbol": "R$",
@@ -70,6 +76,12 @@ export default [
         "Name": "Dollar",
         "Symbol": "$",
         "ISO": "NZD"
+    },
+    {
+        "Currency": " Paraguayan guarani",
+        "Name": "Guarani",
+        "Symbol": "₲",
+        "ISO": "PYG"
     },
     {
         "Currency": " Pound sterling",
