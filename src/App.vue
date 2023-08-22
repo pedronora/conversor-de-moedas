@@ -79,7 +79,7 @@ export default {
     <div v-else class="container shadow rounded my-5 px-3 pt-3">
         <h1>Conversor de Moedas</h1>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-4">
-            <div class="col my-3">
+            <div class="col my-2">
                 <div class="form-floating">
                     <input
                         v-model="qty"
@@ -91,7 +91,7 @@ export default {
                     <label for="floatingInput">Montante</label>
                 </div>
             </div>
-            <div class="col my-3">
+            <div class="col my-2">
                 <div class="form-floating">
                     <select
                         class="form-select"
@@ -109,7 +109,7 @@ export default {
                     <label for="floatingSelect">Selecione uma moeda</label>
                 </div>
             </div>
-            <div class="col my-3">
+            <div class="col my-2">
                 <div class="form-floating">
                     <select
                         class="form-select"
@@ -127,7 +127,7 @@ export default {
                     <label for="floatingSelect">Selecione uma moeda</label>
                 </div>
             </div>
-            <div class="col my-auto">
+            <div class="col my-2">
                 <button @click="invert" class="btn btn-primary">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
