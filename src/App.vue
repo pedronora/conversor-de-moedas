@@ -70,6 +70,11 @@ export default {
     this.isChecked = localStorage.getItem('theme')
   },
   created() {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      this.isChecked = true
+    } else {
+      this.isChecked = false
+    }
     this.loadData()
   }
 }
@@ -87,7 +92,7 @@ export default {
       <div class="d-flex align-items-center">
         <i class="bi bi-brightness-high me-2"></i>
         <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" v-model="isChecked" />
+          <input id="theme" class="form-check-input" type="checkbox" role="switch" v-model="isChecked" />
         </div>
         <i class="bi bi-moon-stars"></i>
       </div>
@@ -99,30 +104,30 @@ export default {
             v-model="qty"
             type="number"
             class="form-control"
-            id="floatingInput"
+            id="montante"
             placeholder="Montante"
           />
-          <label for="floatingInput">Montante</label>
+          <label for="montante">Montante</label>
         </div>
       </div>
       <div class="col my-2">
         <div class="form-floating">
-          <select class="form-select" v-model="selected1" aria-label="Default select example">
+          <select id="select1" class="form-select" v-model="selected1" aria-label="Default select example">
             <option v-for="item in currencies" :value="item" :key="item.ISO">
               {{ item.ISO }} - {{ item.Currency }}
             </option>
           </select>
-          <label for="floatingSelect">Selecione uma moeda</label>
+          <label for="select1">Selecione uma moeda</label>
         </div>
       </div>
       <div class="col my-2">
         <div class="form-floating">
-          <select class="form-select" v-model="selected2" aria-label="Default select example">
+          <select id="select2" class="form-select" v-model="selected2" aria-label="Default select example">
             <option v-for="item in currencies" :value="item" :key="item.ISO">
               {{ item.ISO }} - {{ item.Currency }}
             </option>
           </select>
-          <label for="floatingSelect">Selecione uma moeda</label>
+          <label for="select2">Selecione uma moeda</label>
         </div>
       </div>
       <div class="d-flex align-items-center col my-2">
