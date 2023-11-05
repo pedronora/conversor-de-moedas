@@ -80,7 +80,11 @@ export default {
       this.isChecked = false;
     }
 
-    this.isChecked = localStorage.getItem("theme");
+    const storageTheme = localStorage.getItem("theme");
+
+    if ((storageTheme === "true") | (storageTheme == "false")) {
+      this.isChecked = storageTheme;
+    }
 
     this.loadData();
   },
