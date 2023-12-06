@@ -8,8 +8,18 @@ export default {
       currencies: currencies,
       qty: 1,
       loading: true,
-      selected1: false,
-      selected2: false,
+      selected1: {
+        Currency: " US Dollar",
+        Name: "Dollar",
+        Symbol: "$",
+        ISO: "USD",
+      },
+      selected2: {
+        Currency: " Brazilian real",
+        Name: "Real",
+        Symbol: "R$",
+        ISO: "BRL",
+      },
       lastUpdated: null,
       isChecked: false,
       theme: {
