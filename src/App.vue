@@ -178,9 +178,10 @@ export default {
             <strong> {{ currency2 }} {{ convertCurrency() }}</strong>
           </p>
         </div>
-        <div class="col">
-          <p class="fs-6">
-            Última Atualização: {{ lastUpdated }} - Fonte:
+        <div class="d-flex justify-content-between">
+          <p class="fs-6">Última Atualização: {{ lastUpdated }}</p>
+          <p>
+            Fonte:
             <a
               href="https://moneyconvert.net/pages/api"
               target="_blank"
