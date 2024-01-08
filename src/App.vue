@@ -112,25 +112,25 @@ export default {
     </div>
   </div>
   <div v-else class="container my-3 px-3 pt-3">
-    <div class="d-flex justify-content-between">
-      <h1>Conversor de Moedas</h1>
-      <div class="d-flex align-items-center">
-        <i class="bi bi-brightness-high me-2"></i>
-        <div class="form-check form-switch">
-          <input
-            id="theme"
-            class="form-check-input"
-            type="checkbox"
-            role="switch"
-            v-model="isChecked"
-          />
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="d-flex justify-content-between mb-3">
+          <h1>Conversor de Moedas</h1>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-brightness-high me-2"></i>
+            <div class="form-check form-switch">
+              <input
+                id="theme"
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                v-model="isChecked"
+              />
+            </div>
+            <i class="bi bi-moon-stars"></i>
+          </div>
         </div>
-        <i class="bi bi-moon-stars"></i>
-      </div>
-    </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-4">
-      <div class="col my-2">
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <input
             v-model="qty"
             type="number"
@@ -140,9 +140,7 @@ export default {
           />
           <label for="montante">Montante</label>
         </div>
-      </div>
-      <div class="col my-2">
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <select
             id="select1"
             class="form-select"
@@ -155,9 +153,7 @@ export default {
           </select>
           <label for="select1">Selecione uma moeda</label>
         </div>
-      </div>
-      <div class="col my-2">
-        <div class="form-floating">
+        <div class="form-floating mb-3">
           <select
             id="select2"
             class="form-select"
@@ -170,36 +166,29 @@ export default {
           </select>
           <label for="select2">Selecione uma moeda</label>
         </div>
-      </div>
-      <div class="d-flex align-items-center col my-2">
-        <button @click="invert" class="btn btn-primary">
-          <i class="bi bi-arrow-left-right"></i>
-          Inverter
-        </button>
-      </div>
-    </div>
-    <div v-if="showResult">
-      <div class="row mt-4">
-        <p class="fs-1">
-          <strong>{{ currency1 }} {{ formattedQty }}</strong> é igual a
-          <strong> {{ currency2 }} {{ convertCurrency() }}</strong>
-        </p>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col">
-        <p class="fs-6">Última Atualização: {{ lastUpdated }}</p>
-      </div>
-      <div class="col text-end">
-        <p class="fs-6">
-          Fonte:
-          <a
-            href="https://moneyconvert.net/pages/api"
-            target="_blank"
-            alt="MoneyConvert Link"
-            >MoneyConvert</a
-          >
-        </p>
+        <div class="d-flex align-items-center mb-3">
+          <button @click="invert" class="btn btn-primary">
+            <i class="bi bi-arrow-left-right"></i>
+            Inverter
+          </button>
+        </div>
+        <div v-if="showResult" class="mb-3">
+          <p class="fs-1">
+            <strong>{{ currency1 }} {{ formattedQty }}</strong> é igual a
+            <strong> {{ currency2 }} {{ convertCurrency() }}</strong>
+          </p>
+        </div>
+        <div class="col">
+          <p class="fs-6">
+            Última Atualização: {{ lastUpdated }} - Fonte:
+            <a
+              href="https://moneyconvert.net/pages/api"
+              target="_blank"
+              alt="MoneyConvert Link"
+              >MoneyConvert</a
+            >
+          </p>
+        </div>
       </div>
     </div>
   </div>
