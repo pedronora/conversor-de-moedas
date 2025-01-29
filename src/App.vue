@@ -103,11 +103,7 @@ export default {
 
 <template>
   <div v-if="loading" class="d-flex justify-content-center mt-5">
-    <div
-      class="spinner-border text-primary"
-      style="width: 3rem; height: 3rem"
-      role="status"
-    >
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
@@ -119,34 +115,17 @@ export default {
           <div class="d-flex align-items-center">
             <i class="bi bi-brightness-high me-2"></i>
             <div class="form-check form-switch">
-              <input
-                id="theme"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                v-model="isChecked"
-              />
+              <input id="theme" class="form-check-input" type="checkbox" role="switch" v-model="isChecked" />
             </div>
             <i class="bi bi-moon-stars"></i>
           </div>
         </div>
         <div class="form-floating mb-3">
-          <input
-            v-model="qty"
-            type="number"
-            class="form-control"
-            id="montante"
-            placeholder="Montante"
-          />
+          <input v-model="qty" type="number" class="form-control" id="montante" placeholder="Montante" />
           <label for="montante">Montante</label>
         </div>
         <div class="form-floating mb-3">
-          <select
-            id="select1"
-            class="form-select"
-            v-model="selected1"
-            aria-label="Default select example"
-          >
+          <select id="select1" class="form-select" v-model="selected1" aria-label="Default select example">
             <option v-for="item in currencies" :value="item" :key="item.ISO">
               {{ item.ISO }} - {{ item.Currency }}
             </option>
@@ -154,12 +133,7 @@ export default {
           <label for="select1">Selecione uma moeda</label>
         </div>
         <div class="form-floating mb-3">
-          <select
-            id="select2"
-            class="form-select"
-            v-model="selected2"
-            aria-label="Default select example"
-          >
+          <select id="select2" class="form-select" v-model="selected2" aria-label="Default select example">
             <option v-for="item in currencies" :value="item" :key="item.ISO">
               {{ item.ISO }} - {{ item.Currency }}
             </option>
@@ -182,12 +156,7 @@ export default {
           <p class="fs-6">Última Atualização: {{ lastUpdated }}</p>
           <p>
             Fonte:
-            <a
-              href="https://moneyconvert.net/pages/api"
-              target="_blank"
-              alt="MoneyConvert Link"
-              >MoneyConvert</a
-            >
+            <a href="https://moneyconvert.net/pages/api" target="_blank" alt="MoneyConvert Link">MoneyConvert</a>
           </p>
         </div>
       </div>
