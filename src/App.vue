@@ -118,7 +118,7 @@ export default {
   <div v-if="errorMessage" class="error-message alert alert-danger">
     {{ errorMessage }}
   </div>
-  <div v-else class="container my-3 px-3 pt-3">
+  <div v-if="!errorMessage && !loading" class="container my-3 px-3 pt-3">
     <div class="row justify-content-center">
       <div class="col-lg-6">
         <div class="d-flex justify-content-between mb-3">
