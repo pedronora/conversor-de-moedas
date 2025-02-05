@@ -33,7 +33,7 @@ export default {
     async loadData() {
       try {
         const response = await fetch(
-          "https://cdn.moneyconvert.net/api/latest.json"
+          "https://cdn.moneyconvert.net/api/latest.json",
         );
         const data = await response.json();
         this.values = data["rates"];
