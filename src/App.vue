@@ -4,7 +4,7 @@ import currencies from "./data.js";
 export default {
   data() {
     return {
-      values: {},
+      values: {}, // Inicializado como objeto vazio, não string
       currencies: currencies,
       qty: 1,
       loading: true,
@@ -23,6 +23,7 @@ export default {
       },
       lastUpdated: null,
       isChecked: false,
+      // O objeto theme não é mais necessário, pois o isChecked será um booleano
     };
   },
   methods: {
@@ -45,7 +46,7 @@ export default {
       } catch (e) {
         this.errorMessage =
           "Não foi possível buscar os dados. Tente novamente mais tarde. Detalhes: " +
-          e.message;
+          e.message; // Acessar e.message para erro da rede
         this.loading = false;
       }
     },
@@ -63,6 +64,7 @@ export default {
   },
   computed: {
     showResult() {
+      // Verifica se values tem as chaves necessárias e se qty é um número válido
       return (
         this.selected1 &&
         this.selected2 &&
@@ -80,6 +82,7 @@ export default {
     formattedQty() {
       return parseFloat(this.qty).toFixed(2);
     },
+    // convertCurrency agora é uma propriedade computada
     convertedValue() {
       if (this.showResult) {
         return (
@@ -88,7 +91,7 @@ export default {
           this.qty
         ).toFixed(2);
       }
-      return "0.00";
+      return "0.00"; // Retorna um valor padrão quando não há resultado
     },
   },
   watch: {
@@ -100,6 +103,7 @@ export default {
     const storageTheme = localStorage.getItem("theme");
 
     if (storageTheme !== null) {
+      // Converte a string "true" ou "false" para booleano
       this.isChecked = storageTheme === "true";
     } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.isChecked = true;
@@ -107,6 +111,7 @@ export default {
       this.isChecked = false;
     }
 
+    // Aplica o tema inicial imediatamente
     this.setTheme(this.isChecked);
 
     this.loadData();
