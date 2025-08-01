@@ -4,7 +4,7 @@ import currencies from "./data.js";
 export default {
   data() {
     return {
-      values: "",
+      values: {},
       currencies: currencies,
       qty: 1,
       loading: true,
@@ -23,18 +23,17 @@ export default {
       },
       lastUpdated: null,
       isChecked: false,
-      theme: {
-        false: "light",
-        true: "dark",
-      },
     };
   },
   methods: {
     async loadData() {
       try {
         const response = await fetch(
-          "https://cdn.moneyconvert.net/api/latest.json",
+          "https://cdn.moneyconvert.net/api/latest.json"
         );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         this.values = data["rates"];
         let date = new Date(data["lastupdate"]);
@@ -46,17 +45,8 @@ export default {
       } catch (e) {
         this.errorMessage =
           "Não foi possível buscar os dados. Tente novamente mais tarde. Detalhes: " +
-          e;
+          e.message;
         this.loading = false;
-      }
-    },
-    convertCurrency() {
-      if (this.showResult) {
-        return (
-          (this.values[this.selected2["ISO"]] /
-            this.values[this.selected1["ISO"]]) *
-          this.qty
-        ).toFixed(2);
       }
     },
     invert() {
@@ -64,10 +54,22 @@ export default {
       this.selected2 = this.selected1;
       this.selected1 = temp;
     },
+    setTheme(isDark) {
+      document
+        .querySelector("html")
+        .setAttribute("data-bs-theme", isDark ? "dark" : "light");
+      localStorage.setItem("theme", isDark);
+    },
   },
   computed: {
     showResult() {
-      return this.selected1 && this.selected2;
+      return (
+        this.selected1 &&
+        this.selected2 &&
+        this.values[this.selected1["ISO"]] &&
+        this.values[this.selected2["ISO"]] &&
+        !isNaN(parseFloat(this.qty))
+      );
     },
     currency1() {
       return this.selected1["Symbol"];
@@ -78,27 +80,34 @@ export default {
     formattedQty() {
       return parseFloat(this.qty).toFixed(2);
     },
+    convertedValue() {
+      if (this.showResult) {
+        return (
+          (this.values[this.selected2["ISO"]] /
+            this.values[this.selected1["ISO"]]) *
+          this.qty
+        ).toFixed(2);
+      }
+      return "0.00";
+    },
   },
   watch: {
-    isChecked() {
-      document
-        .querySelector("html")
-        .setAttribute("data-bs-theme", this.theme[this.isChecked]);
-      localStorage.setItem("theme", this.isChecked);
+    isChecked(newValue) {
+      this.setTheme(newValue);
     },
   },
   created() {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    const storageTheme = localStorage.getItem("theme");
+
+    if (storageTheme !== null) {
+      this.isChecked = storageTheme === "true";
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.isChecked = true;
     } else {
       this.isChecked = false;
     }
 
-    const storageTheme = localStorage.getItem("theme");
-
-    if ((storageTheme === "true") | (storageTheme === "false")) {
-      this.isChecked = storageTheme;
-    }
+    this.setTheme(this.isChecked);
 
     this.loadData();
   },
@@ -112,7 +121,7 @@ export default {
       style="width: 3rem; height: 3rem"
       role="status"
     >
-      <span class="visually-hidden">Loading...</span>
+      <span class="visually-hidden">Carregando...</span>
     </div>
   </div>
   <div v-if="errorMessage" class="error-message alert alert-danger">
@@ -139,7 +148,7 @@ export default {
         </div>
         <div class="form-floating mb-3">
           <input
-            v-model="qty"
+            v-model.number="qty"
             type="number"
             class="form-control"
             id="montante"
@@ -158,7 +167,7 @@ export default {
               {{ item.ISO }} - {{ item.Currency }}
             </option>
           </select>
-          <label for="select1">Selecione uma moeda</label>
+          <label for="select1">Selecione uma moeda de origem</label>
         </div>
         <div class="form-floating mb-3">
           <select
@@ -171,7 +180,7 @@ export default {
               {{ item.ISO }} - {{ item.Currency }}
             </option>
           </select>
-          <label for="select2">Selecione uma moeda</label>
+          <label for="select2">Selecione uma moeda de destino</label>
         </div>
         <div class="d-flex align-items-center mb-3">
           <button @click="invert" class="btn btn-primary">
@@ -182,7 +191,7 @@ export default {
         <div v-if="showResult" class="mb-3">
           <p class="fs-1">
             <strong>{{ currency1 }} {{ formattedQty }}</strong> é igual a
-            <strong> {{ currency2 }} {{ convertCurrency() }}</strong>
+            <strong> {{ currency2 }} {{ convertedValue }}</strong>
           </p>
         </div>
         <div class="d-flex justify-content-between">
