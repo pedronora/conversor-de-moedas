@@ -33,11 +33,11 @@ export default {
     async loadData() {
       try {
         const response = await fetch(
-          "https://cdn.moneyconvert.net/api/latest.json",
+          "https://cdn.moneyconvert.net/api/latest.json"
         );
         const data = await response.json();
         this.values = data["rates"];
-        let date = new Date(data["lastupdate"]);
+        let date = new Date(data["ts"]);
         this.lastUpdated =
           date.toLocaleDateString("pt-BR") +
           " - " +
@@ -208,6 +208,6 @@ export default {
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999; /* Garante que a mensagem fique sobre outros elementos */
+  z-index: 9999;
 }
 </style>
